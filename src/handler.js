@@ -5,7 +5,7 @@ const addNoteHandler = (request, h) => {
   const { title, tags, body } = request.payload;
 
   const id = nanoid(16);
-  const createdAt = new Date().toDateString();
+  const createdAt = new Date().toISOString();
   const updateAt = createdAt;
 
   const newNote = {
@@ -19,12 +19,14 @@ const addNoteHandler = (request, h) => {
   if (isSuccess) {
     const response = h.response({
       status: 'success',
+      error: false,
       message: 'Catatan berhasil ditambahkan',
       data: {
         noteId: id,
       },
     });
     response.code(201);
+    response.header('Access-Control-Allow-Origin', 'http://notesapp-v1.dicodingacademy.com/');
     return response;
   }
 
@@ -84,7 +86,7 @@ const editNoteByIdHandler = (request, h) => {
 
     const response = h.response({
       status: 'success',
-      message: 'Catatan berhasil diperbaharui',
+      message: 'Catatan berhasil diperbarui',
     });
     response.code(200);
     return response;
@@ -92,7 +94,7 @@ const editNoteByIdHandler = (request, h) => {
 
   const response = h.response({
     status: 'fail',
-    message: 'Gagal memperbaharui catatan, Id tidak ditemukan',
+    message: 'Gagal memperbarui catatan, Id tidak ditemukan',
   });
   response.code(404);
   return response;
@@ -109,7 +111,7 @@ const deleteNoteByIdHandler = (request, h) => {
       status: 'success',
       message: 'Catatan berhasil dihapus',
     });
-    response.code(209);
+    response.code(200);
     return response;
   }
 
