@@ -19,7 +19,7 @@ const addNoteHandler = (request, h) => {
   if (isSuccess) {
     const response = h.response({
       status: 'success',
-      massage: 'Catatan berhasil ditambahakan',
+      message: 'Catatan berhasil ditambahakan',
       data: {
         noteId: id,
       },
